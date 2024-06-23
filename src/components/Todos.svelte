@@ -31,6 +31,12 @@
 
   const markCompleted = (e) =>
     (e.detail.todo.completed = !e.detail.todo.completed);
+
+  function updateTodo(e) {
+    const { todo } = e.detail;
+    const i = todos.findIndex((t) => t.id === todo.id);
+    todos[i] = { ...todos[i], ...todo };
+  }
 </script>
 
 <!-- Todos.svelte -->
@@ -65,7 +71,12 @@
   <ul role="list" class="todo-list stack-large" aria-labelledby="list-heading">
     {#each filterTodos(filter, todos) as todo (todo.id)}
       <li class="todo">
-        <Todo {todo} on:complete={markCompleted} on:remove={removeTodo} />
+        <Todo
+          {todo}
+          on:update={updateTodo}
+          on:complete={markCompleted}
+          on:remove={removeTodo}
+        />
       </li>
     {:else}
       <li>Nothing to do here!</li>
