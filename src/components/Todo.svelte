@@ -77,7 +77,7 @@
       <label for="todo-{todo.id}" class="todo-label">{todo.name}</label>
     </div>
     <div class="btn-group">
-      <button type="button" class="btn" on:click={() => (editing = !editing)}>
+      <button type="button" class="btn" on:click={onEdit}>
         Edit <span class="visually-hidden">{todo.name}</span>
       </button>
       <button type="button" class="btn btn__danger" on:click={onRemove}>
