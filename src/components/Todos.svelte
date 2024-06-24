@@ -3,10 +3,9 @@
   import MoreActions from "./MoreActions.svelte";
   import NewTodo from "./NewTodo.svelte";
   import Todo from "./Todo.svelte";
+  import TodosStatus from "./TodosStatus.svelte";
 
   export let todos = [];
-  $: totalTodos = todos.length;
-  $: completedTodos = todos.filter((todo) => todo.completed).length;
 
   function removeTodo(e) {
     todos = todos.filter((t) => t.id !== e.detail.todo.id);
@@ -53,9 +52,9 @@
   <FilterButton bind:filter />
 
   <!-- TodosStatus -->
-  <h2 id="list-heading">
-    {completedTodos} out of {totalTodos} items completed
-  </h2>
+
+  <TodosStatus {todos} />
+
   <!-- Todos -->
   <!-- svelte-ignore a11y-no-redundant-roles -->
   <!-- To-dos -->
