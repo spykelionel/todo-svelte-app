@@ -35,6 +35,16 @@
   function onToggle() {
     update({ completed: !todo.completed }); // updates todo status
   }
+
+  function selectOnFocus(node) {
+    if (node && typeof node.select === "function") {
+      const onFocus = (event) => node.select();
+      node.addEventListener("focus", onFocus);
+      return {
+        destroy: () => node.removeEventListener("focus", onFocus),
+      };
+    }
+  }
 </script>
 
 <div class="stack-small">
@@ -51,6 +61,7 @@
         <input
           bind:value={name}
           bind:this={nameEl}
+          use:selectOnFocus
           type="text"
           id="todo-{todo.id}"
           autoComplete="off"
