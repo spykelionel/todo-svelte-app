@@ -5,7 +5,7 @@
   let completed = true;
 
   const checkAll = () => {
-    dispatch("checkAll", completed);
+    dispatch("checkAll", { completed });
     completed = !completed;
   };
 
