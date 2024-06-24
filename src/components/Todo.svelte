@@ -1,10 +1,11 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, tick } from "svelte";
 
   export let todo;
   const dispatch = createEventDispatcher();
   let editing = false; // track editing mode
   let name = todo.name; // hold the name of the to-do being edited
+  let nameEl;
 
   function update(updatedTodo) {
     todo = { ...todo, ...updatedTodo }; // applies modifications to todo
@@ -25,8 +26,10 @@
     dispatch("remove", { todo }); // emit remove event
   }
 
-  function onEdit() {
+  async function onEdit() {
     editing = true; // enter editing mode
+    await tick();
+    nameEl.focus();
   }
 
   function onToggle() {
@@ -47,6 +50,7 @@
         >
         <input
           bind:value={name}
+          bind:this={nameEl}
           type="text"
           id="todo-{todo.id}"
           autoComplete="off"
