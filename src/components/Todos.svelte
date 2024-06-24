@@ -6,9 +6,11 @@
   import TodosStatus from "./TodosStatus.svelte";
 
   export let todos = [];
+  let todoStatus;
 
   function removeTodo(e) {
     todos = todos.filter((t) => t.id !== e.detail.todo.id);
+    todoStatus.onFocus();
   }
 
   function addTodo(e) {
@@ -53,7 +55,7 @@
 
   <!-- TodosStatus -->
 
-  <TodosStatus {todos} />
+  <TodosStatus {todos} bind:this={todoStatus} />
 
   <!-- Todos -->
   <!-- svelte-ignore a11y-no-redundant-roles -->
