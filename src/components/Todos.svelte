@@ -1,5 +1,6 @@
 <script>
   import FilterButton from "./FilterButton.svelte";
+  import MoreActions from "./MoreActions.svelte";
   import Todo from "./Todo.svelte";
 
   export let todos = [];
@@ -36,6 +37,15 @@
     const { todo } = e.detail;
     const i = todos.findIndex((t) => t.id === todo.id);
     todos[i] = { ...todos[i], ...todo };
+  }
+
+  function checkAllTodos(e) {
+    const { completed } = e.detail;
+    todos.forEach((t) => (t.completed = completed));
+  }
+
+  function removeCompletedTodos() {
+    todos = todos.filter((t) => !t.completed);
   }
 </script>
 
@@ -86,8 +96,8 @@
   <hr />
 
   <!-- MoreActions -->
-  <div class="btn-group">
-    <button type="button" class="btn btn__primary">Check all</button>
-    <button type="button" class="btn btn__primary">Remove completed</button>
-  </div>
+  <MoreActions
+    on:checkAll={checkAllTodos}
+    on:removeCompleted={removeCompletedTodos}
+  />
 </div>
