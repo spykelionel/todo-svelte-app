@@ -99,5 +99,6 @@
   <MoreActions
     on:checkAll={checkAllTodos}
     on:removeCompleted={removeCompletedTodos}
+    {todos}
   />
 </div>
