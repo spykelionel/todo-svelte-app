@@ -1,7 +1,8 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   const dispatch = createEventDispatcher();
 
+  export let autofocus;
   let name = "";
   let nameEl;
 
@@ -15,6 +16,7 @@
     name = "";
     nameEl.focus();
   };
+  onMount(() => autofocus && nameEl.focus());
 </script>
 
 <form
