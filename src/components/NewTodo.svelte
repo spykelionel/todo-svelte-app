@@ -3,13 +3,18 @@
   const dispatch = createEventDispatcher();
 
   let name = "";
+  let nameEl;
 
   const addTodo = () => {
     dispatch("addTodo", { name });
     name = "";
+    nameEl.focus();
   };
 
-  const onCancel = () => (name = "");
+  const onCancel = () => {
+    name = "";
+    nameEl.focus();
+  };
 </script>
 
 <form
@@ -20,6 +25,7 @@
     <label for="todo-0" class="label__lg">What needs to be done?</label>
   </h2>
   <input
+    bind:this={nameEl}
     bind:value={name}
     type="text"
     id="todo-0"
