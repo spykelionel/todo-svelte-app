@@ -1,6 +1,7 @@
 <script>
   import FilterButton from "./FilterButton.svelte";
   import MoreActions from "./MoreActions.svelte";
+  import NewTodo from "./NewTodo.svelte";
   import Todo from "./Todo.svelte";
 
   export let todos = [];
@@ -11,15 +12,10 @@
     todos = todos.filter((t) => t.id !== e.detail.todo.id);
   }
 
-  let newTodo = "";
-  function addTodo() {
-    if (newTodo.length < 1) {
-      alert("Field can not be empty");
-      return;
-    }
-    const value = { completed: false, id: todos.length + 1, name: newTodo };
+  function addTodo(e) {
+    const { name } = e.detail;
+    const value = { completed: false, id: todos.length + 1, name };
     todos = [...todos, value];
-    newTodo = "";
   }
 
   let filter = "all";
@@ -52,22 +48,7 @@
 <!-- Todos.svelte -->
 <div class="todoapp stack-large">
   <!-- NewTodo -->
-  <form on:submit|preventDefault={addTodo}>
-    <h2 class="label-wrapper">
-      <label for="todo-0" class="label__lg"> What needs to be done? </label>
-    </h2>
-    <input
-      bind:value={newTodo}
-      type="text"
-      id="todo-0"
-      autocomplete="off"
-      class="input input__lg"
-    />
-    <button type="submit" disabled="" class="btn btn__primary btn__lg">
-      Add
-    </button>
-  </form>
-
+  <NewTodo on:addTodo={addTodo} />
   <!-- Filter -->
   <FilterButton bind:filter />
 
