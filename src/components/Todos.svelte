@@ -41,7 +41,7 @@
 
   function checkAllTodos(e) {
     const { completed } = e.detail;
-    todos.forEach((t) => (t.completed = completed));
+    todos = todos.map((t) => ({ ...t, completed }));
   }
 
   function removeCompletedTodos() {
